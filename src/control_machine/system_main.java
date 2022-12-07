@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class system_main {
     public static void main(String[] args) {
-
+        Scanner scanner = new Scanner(System.in);
         //int temp_environment= (int)(Math.random()*40 + 5); //Since we cannot read a data from any sensor, we will generate a random environment temperature
         //int humi_environment = (int)(Math.random()*100); //Since we cannot read a data from any sensor, we will generate a random soil humidity.
         // Then, we read those datas by our Sensor class' read() function.
@@ -12,12 +12,39 @@ public class system_main {
         Humidity humidity = new Humidity();
         welcome(temp, humidity);
 
+        while (true){
+            String operations = "1.Option: Set the temperature.\n" +
+                    "2.Option: Set the humidity.\n" +
+                    "3.Option: Quit setting options.";
+            System.out.println("******************************************************");
+            System.out.println(operations);
+            System.out.println("******************************************************");
+            System.out.println("You can choose mode whatever you want: ");
+            String key = scanner.nextLine();
+
+
+            if(key.equals("1")){
+                System.out.println("You can set your temperature values.");
+                temp.set();
+
+            }
+            else if(key.equals("2")){
+                System.out.println("You can set your humidity values.");
+                humidity.set();
+            }
+            else if(key.equals("q")){
+                System.out.println("System operations will be finish.");
+                break;
+            }
+        }
+
+        currStatus(temp , humidity);
 
     }
 
     public static void welcome(Temperature temp, Humidity humidity) { //This method works when the system is waken up from sleep mode.
-        Scanner scanner = new Scanner(System.in);
-        // if(user.press()){ //Later, don't forget to change static press method
+
+         if(user.press()){ //Later, don't forget to change static press method
         System.out.println("******************************************************");
 
         System.out.println("Your system initialized.");
@@ -35,27 +62,19 @@ public class system_main {
 
         System.out.println("If you want to set a max or min value, press 'Enter' button to get into system. ");
 
-        /*while (true){
-            System.out.println("You can choose mode whatever you want: ");
-            String key = scanner.nextLine();
-        }*/
-        if (user.press()) {
-            System.out.println("---------------------------------------------------");
-            System.out.println("You can set your values for temperature");
-            System.out.println("---------------------------------------------------");
-            temp.set();
 
 
-            System.out.println("---------------------------------------------------");
-            System.out.println("You can set your values for humidity");
-            System.out.println("---------------------------------------------------");
-            humidity.set();
 
-        } else {
-            System.out.println("---------------------------------------------------");
-            System.out.println("You did not want to change system default values .");
-            System.out.println("---------------------------------------------------");
+
+
+          }
+         else{
+           System.out.println("You need to start your system.");
         }
+
+
+    }
+    public static void currStatus(Temperature temp , Humidity humidity){
         System.out.println("******************************************************");
         System.out.println("LED state for temperature: ");
         temp.warningLight();
@@ -63,14 +82,6 @@ public class system_main {
         System.out.println("LED state for humidity: ");
         humidity.warningLight();
         System.out.println("******************************************************");
-
-
-
-        //  }
-        /* else{
-           System.out.println("You need to start your system.");
-        } */
-
-
     }
+
 }
