@@ -14,15 +14,27 @@ public class Humidity extends feature {
         //********************
     }
 
-    public void set() {
+    public void setMin() {
         System.out.print("Please, enter the minimum humidity value that you want to be noticed: ");
         set_min = sc.nextInt();
-        System.out.println("Your minimum humidity value: " + set_min);
-        System.out.println();
+        if (set_min > 50 || set_min < 0) {
+            System.out.println("Please, you should set adjustable value.");
+            setMin();
+        }else{
+            System.out.println("Your minimum humidity value: " + set_min);
+        }
+    }
 
+
+    public void setMax(){
         System.out.print("Please, enter the maximum humidity value that you want to be noticed: ");
         set_max = sc.nextInt();
-        System.out.println("Your maximum humidity value: " + set_max);
+        if (set_max < set_min || set_max > 50) {
+            System.out.println("Please, you should set adjustable value.");
+            setMax();
+        }else{
+            System.out.println("Your maximum humidity value: " + set_max);
+        }
     }
 
     public int currentValue() {

@@ -10,46 +10,50 @@ public class system_main {
         // Then, we read those datas by our Sensor class' read() function.
         Temperature temp = new Temperature();
         Humidity humidity = new Humidity();
-        welcome(temp, humidity);
-
-        while (true){
-            String operations = "1.Option: Set the temperature.\n" +
-                    "2.Option: Set the humidity.\n" +
-                    "3.Option: Quit setting options.";
+        if (user.press()) {
             System.out.println("******************************************************");
-            System.out.println(operations);
+
+            System.out.println("Your system initialized.");
+
             System.out.println("******************************************************");
-            System.out.println("You can choose mode whatever you want: ");
-            String key = scanner.nextLine();
+
+            welcome(temp, humidity);
+
+            while (true) {
+                String operations = "1.Option: Set the temperature.\n" +
+                        "2.Option: Set the humidity.\n" +
+                        "3.Option: Quit setting options.";
+                System.out.println("******************************************************");
+                System.out.println(operations);
+                System.out.println("******************************************************");
+                System.out.println("You can choose mode whatever you want: ");
+                String key = scanner.nextLine();
 
 
-            if(key.equals("1")){
-                System.out.println("You can set your temperature values.");
-                temp.set();
+                if (key.equals("1")) {
+                    System.out.println("You can set your temperature values.");
+                    temp.setMin();
+                    temp.setMax();
 
+                } else if (key.equals("2")) {
+                    System.out.println("You can set your humidity values.");
+                    humidity.set();
+                } else if (key.equals("q")) {
+                    System.out.println("System operations will be finish.");
+                    break;
+                }
             }
-            else if(key.equals("2")){
-                System.out.println("You can set your humidity values.");
-                humidity.set();
-            }
-            else if(key.equals("q")){
-                System.out.println("System operations will be finish.");
-                break;
-            }
+
+            currStatus(temp, humidity);
+        } else {
+            System.out.println("You need to start your system.");
         }
 
-        currStatus(temp , humidity);
 
     }
 
     public static void welcome(Temperature temp, Humidity humidity) { //This method works when the system is waken up from sleep mode.
 
-         if(user.press()){ //Later, don't forget to change static press method
-        System.out.println("******************************************************");
-
-        System.out.println("Your system initialized.");
-
-        System.out.println("******************************************************");
 
         System.out.println("Welcome to Plant Control System, current values are:");
 
@@ -63,18 +67,9 @@ public class system_main {
         System.out.println("If you want to set a max or min value, press 'Enter' button to get into system. ");
 
 
-
-
-
-
-          }
-         else{
-           System.out.println("You need to start your system.");
-        }
-
-
     }
-    public static void currStatus(Temperature temp , Humidity humidity){
+
+    public static void currStatus(Temperature temp, Humidity humidity) {
         System.out.println("******************************************************");
         System.out.println("LED state for temperature: ");
         temp.warningLight();
